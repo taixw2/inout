@@ -43,6 +43,20 @@ app.get("/api/search", async (req, res) => {
     });
 });
 
+// 搜索商品
+app.get("/api/getGoodsByCode", async (req, res) => {
+  const code = req.query.code;
+  prisma.goods
+    .findFirst({
+      where: {
+        goodsBarCode: code,
+      },
+    })
+    .then((data) => {
+      res.send(data);
+    });
+});
+
 // 核对商品
 app.post("/api/verify", async (req, res) => {
   const { goodsId, goodsActualNum, goodsBarCode, goodsRemark } = req.body;
@@ -101,7 +115,6 @@ app.post("/api/confirm", async (req, res) => {
 const port = process.env.PORT || 80;
 
 async function bootstrap() {
-  await initDB();
   app.listen(port, () => {
     console.log("启动成功", port);
   });
