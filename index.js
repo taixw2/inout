@@ -82,6 +82,7 @@ app.get("/api/getUnConfirmGoods", async (req, res) => {
     .findMany({
       where: {
         goodsConfirmOpenid: null,
+        goodsStatus: "init",
         goodsCreateOpenid: {
           not: "",
         },

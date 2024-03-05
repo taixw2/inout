@@ -48,7 +48,7 @@ model Goods {
   // 类型
   goodsType          String?
   // 录入状态
-  goodsStatus        String?
+  goodsStatus        String?   @default("init")
   // 录入备注图片
-  goodsRemarkPic     String?   @default("init")
+  goodsRemarkPic     String?
 }

@@ -19,10 +19,12 @@ async function main() {
       goodsActualPrice: 0,
       goodsBarCode: item["条形码(upc/ean等)"]?.toString(),
       goodsRemark: "",
+      goodsStatus: "init",
       goodsInnerCode: nanoid().toUpperCase() + nanoid2(),
       goodsAbnormal: !item["单价"],
       goodsCreateOpenid: "",
       goodsConfirmOpenid: "",
+      goodsRemarkPic: "",
     }));
   });
 
