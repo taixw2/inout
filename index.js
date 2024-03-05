@@ -29,14 +29,14 @@ app.get("/api/wx_openid", async (req, res) => {
 
 // 搜索商品
 app.get("/api/search", async (req, res) => {
-  const keywork = req.query.keywork;
-  console.log("🚀 ~ app.get ~ keywork:", keywork);
+  const keyword = req.query.keyword;
+  console.log("🚀 ~ app.get ~ keyword:", keyword);
 
   prisma.goods
     .findMany({
       where: {
         goodsName: {
-          contains: keywork,
+          contains: keyword,
         },
       },
     })
