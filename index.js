@@ -81,7 +81,7 @@ app.get("/api/getUnConfirmGoods", async (req, res) => {
   prisma.goods
     .findMany({
       where: {
-        goodsConfirmOpenid: null,
+        goodsConfirmOpenid: "",
         goodsStatus: "init",
         goodsCreateOpenid: {
           not: "",
