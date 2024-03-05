@@ -47,4 +47,8 @@ model Goods {
   goodsConfirmTime   DateTime?
   // 类型
   goodsType          String?
+  // 录入状态
+  goodsStatus        String?
+  // 录入备注图片
+  goodsRemarkPic     String?
 }
