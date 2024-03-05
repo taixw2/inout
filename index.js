@@ -92,6 +92,32 @@ app.get("/api/getUnConfirmGoods", async (req, res) => {
     });
 });
 
+// 获取未处理的商品
+app.get("/api/getUnHandleGoods", async (req, res) => {
+  prisma.goods
+    .findMany({
+      where: {
+        goodsActualNum: 0,
+      },
+    })
+    .then((data) => {
+      res.send(data);
+    });
+});
+
+// 获取拒绝的商品
+app.get("/api/getRefuseGoods", async (req, res) => {
+  prisma.goods
+    .findMany({
+      where: {
+        goodsStatus: "refuse",
+      },
+    })
+    .then((data) => {
+      res.send(data);
+    });
+});
+
 // 核对商品
 app.post("/api/verify", async (req, res) => {
   const { goodsId, goodsActualNum, goodsBarCode, goodsRemark } = req.body;

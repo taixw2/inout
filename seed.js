@@ -22,9 +22,7 @@ async function main() {
       goodsInnerCode: nanoid().toUpperCase() + nanoid2(),
       goodsAbnormal: !item["单价"],
       goodsCreateOpenid: "",
-      // goodsCreateTime: new ,
       goodsConfirmOpenid: "",
-      // goodsConfirmTime: "",
     }));
   });
 
