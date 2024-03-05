@@ -68,7 +68,7 @@ app.get("/api/getGoodsById", async (req, res) => {
   prisma.goods
     .findFirst({
       where: {
-        id: id,
+        id: Number(id),
       },
     })
     .then((data) => {
