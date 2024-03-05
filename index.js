@@ -120,14 +120,18 @@ app.get("/api/getRefuseGoods", async (req, res) => {
 
 // 核对商品
 app.post("/api/verify", async (req, res) => {
-  const { goodsId, goodsActualNum, goodsBarCode, goodsRemark } = req.body;
+  const { goodsId, goodsActualNum, goodsBarCode, goodsRemark, goodsRemarkPic } = req.body;
   const updatePayload = {
     goodsActualNum: goodsActualNum,
     goodsCreateTime: new Date(),
     goodsCreateOpenid: req.headers["x-wx-openid"],
+    goodsStatus: "init",
   };
   if (goodsBarCode) {
     updatePayload["goodsBarCode"] = goodsBarCode;
+  }
+  if (goodsRemarkPic) {
+    updatePayload["goodsRemarkPic"] = goodsRemarkPic;
   }
   if (goodsRemark) {
     updatePayload["goodsRemark"] = goodsRemark;
@@ -146,17 +150,13 @@ app.post("/api/verify", async (req, res) => {
 
 // 确认商品
 app.post("/api/confirm", async (req, res) => {
-  const { goodsId, goodsActualNum, goodsBarCode, goodsRemark } = req.body;
+  const { goodsId, goodsStatus } = req.body;
   const updatePayload = {
     goodsConfirmOpenid: req.headers["x-wx-openid"],
     goodsConfirmTime: new Date(),
+    goodsStatus: goodsStatus,
   };
-  if (goodsActualNum) {
-    updatePayload["goodsActualNum"] = goodsActualNum;
-  }
-  if (goodsBarCode) {
-    updatePayload["goodsBarCode"] = goodsBarCode;
-  }
+
   if (goodsRemark) {
     updatePayload["goodsRemark"] = goodsRemark;
   }

@@ -50,5 +50,5 @@ model Goods {
   // 录入状态
   goodsStatus        String?
   // 录入备注图片
-  goodsRemarkPic     String?
+  goodsRemarkPic     String?   @default("init")
 }
