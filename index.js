@@ -151,7 +151,7 @@ app.post("/api/verify", async (req, res) => {
 
 // 确认商品
 app.post("/api/confirm", async (req, res) => {
-  const { goodsId, goodsStatus } = req.body;
+  const { goodsId, goodsStatus, goodsRemark } = req.body;
   const updatePayload = {
     goodsConfirmOpenid: req.headers["x-wx-openid"],
     goodsConfirmTime: new Date(),
