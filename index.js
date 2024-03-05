@@ -165,7 +165,7 @@ app.post("/api/confirm", async (req, res) => {
   prisma.goods
     .update({
       where: {
-        id: goodsId,
+        id: Number(goodsId),
       },
       data: updatePayload,
     })
