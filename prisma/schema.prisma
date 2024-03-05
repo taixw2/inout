@@ -1,0 +1,50 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Goods {
+  id                 Int       @id @default(autoincrement())
+  /// 商品名称
+  goodsName          String
+  /// 商品规格
+  goodsSpec          String?
+  // 商品采购价格
+  goodsPurchasePrice Float     @default(0)
+  // 采购数量
+  goodsPurchaseNum   Int       @default(0)
+  // 实际数量
+  goodsActualNum     Int       @default(0)
+  // 总金额
+  goodsTotalPrice    Float     @default(0)
+  // 实际金额
+  goodsActualPrice   Float     @default(0)
+  // 商品条形码
+  goodsBarCode       String?
+  /// 商品备注
+  goodsRemark        String?
+  // 商品内部码
+  goodsInnerCode     String?   @unique
+  // 是否异常
+  goodsAbnormal      Boolean   @default(false)
+  // 录入人 openid
+  goodsCreateOpenid  String?
+  // 录入时间
+  goodsCreateTime    DateTime?
+  // 确认人 openid
+  goodsConfirmOpenid String?
+  // 确认时间
+  goodsConfirmTime   DateTime?
+  // 类型
+  goodsType          String?
+}
