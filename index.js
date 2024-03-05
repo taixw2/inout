@@ -30,6 +30,8 @@ app.get("/api/wx_openid", async (req, res) => {
 // 搜索商品
 app.get("/api/search", async (req, res) => {
   const keywork = req.query.keywork;
+  console.log("🚀 ~ app.get ~ keywork:", keywork);
+
   prisma.goods
     .findMany({
       where: {
@@ -46,6 +48,8 @@ app.get("/api/search", async (req, res) => {
 // 搜索商品
 app.get("/api/getGoodsByCode", async (req, res) => {
   const code = req.query.code;
+  console.log("🚀 ~ app.get ~ code:", code);
+
   prisma.goods
     .findFirst({
       where: {
