@@ -61,6 +61,37 @@ app.get("/api/getGoodsByCode", async (req, res) => {
     });
 });
 
+// 通过 ID 查找商品
+app.get("/api/getGoodsById", async (req, res) => {
+  const id = req.query.id;
+  console.log("🚀 ~ app.get ~ id:", id);
+  prisma.goods
+    .findFirst({
+      where: {
+        id: id,
+      },
+    })
+    .then((data) => {
+      res.send(data);
+    });
+});
+
+// 查找所有没有确认的商品
+app.get("/api/getUnConfirmGoods", async (req, res) => {
+  prisma.goods
+    .findMany({
+      where: {
+        goodsConfirmOpenid: null,
+        goodsCreateOpenid: {
+          not: "",
+        },
+      },
+    })
+    .then((data) => {
+      res.send(data);
+    });
+});
+
 // 核对商品
 app.post("/api/verify", async (req, res) => {
   const { goodsId, goodsActualNum, goodsBarCode, goodsRemark } = req.body;
