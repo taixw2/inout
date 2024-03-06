@@ -56,5 +56,5 @@ model Goods {
   // 商品录入图片
   goodsInputPic      String?   @db.Text
   // 店内码
-  storeInnerCode     String?   @unique
+  storeInnerCode     String?
 }

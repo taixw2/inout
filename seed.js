@@ -25,6 +25,7 @@ async function main() {
       goodsCreateOpenid: "",
       goodsConfirmOpenid: "",
       goodsRemarkPic: "",
+      storeInnerCode: typeof item["序号"] === "string" ? item["序号"] : null,
     }));
   });
 
