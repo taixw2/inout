@@ -54,18 +54,22 @@ app.get("/api/search", async (req, res) => {
 
 // 统计
 app.get("/api/stat", async (req, res) => {
-  prisma.goods
-    .count({
+  const [initCount, allCount] = await Promise.all([
+    prisma.goods.count({
       where: {
         goodsStatus: "init",
         goodsCreateOpenid: {
           not: "",
         },
       },
-    })
-    .then((data) => {
-      res.send(data);
-    });
+    }),
+    prisma.goods.count({}),
+  ]);
+
+  return {
+    initCount,
+    allCount,
+  };
 });
 
 // 搜索商品
