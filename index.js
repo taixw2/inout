@@ -104,7 +104,7 @@ app.get("/api/getGoodsByType", async (req, res) => {
 
 // 拣货
 app.post("/api/pick", async (req, res) => {
-  const { goodsId, goodsBarCode } = req.body;
+  const { goodsId, goodsBarCode, storeInnerCode, goodsRemark } = req.body;
   prisma.goods
     .update({
       where: {
@@ -113,6 +113,8 @@ app.post("/api/pick", async (req, res) => {
       data: {
         goodsPick: true,
         goodsBarCode,
+        goodsRemark,
+        storeInnerCode,
       },
     })
     .then((data) => {
