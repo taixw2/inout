@@ -52,6 +52,22 @@ app.get("/api/search", async (req, res) => {
     });
 });
 
+// 统计
+app.get("/api/stat", async (req, res) => {
+  prisma.goods
+    .count({
+      where: {
+        goodsStatus: "init",
+        goodsCreateOpenid: {
+          not: "",
+        },
+      },
+    })
+    .then((data) => {
+      res.send(data);
+    });
+});
+
 // 搜索商品
 app.get("/api/getGoodsByCode", async (req, res) => {
   const code = req.query.code;
