@@ -59,4 +59,15 @@ model Goods {
   storeInnerCode     String?
   // 是否已经拣货
   goodsPick          Boolean   @default(false)
+  barCodes           BarCode[]
+}
+
+// 商品条形码
+model BarCode {
+  id           Int       @id @default(autoincrement())
+  goodsId      Int
+  goodsBarCode String
+  createTime   DateTime?
+
+  goods Goods @relation(fields: [goodsId], references: [id])
 }

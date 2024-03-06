@@ -32,6 +32,9 @@ app.get("/api/search", async (req, res) => {
   const keyword = req.query.keyword;
   prisma.goods
     .findMany({
+      include: {
+        barCodes: true,
+      },
       where: {
         OR: [
           {
@@ -81,17 +84,26 @@ app.get("/api/stat", async (req, res) => {
 // 搜索商品
 app.get("/api/getGoodsByCode", async (req, res) => {
   const code = req.query.code;
-  console.log("🚀 ~ app.get ~ code:", code);
+  const barCode = await prisma.barCode.findFirst({
+    where: {
+      goodsBarCode: code,
+    },
+  });
 
-  prisma.goods
-    .findFirst({
-      where: {
-        goodsBarCode: code,
-      },
-    })
-    .then((data) => {
-      res.send(data);
-    });
+  if (!barCode || !barCode.goodsBarCode) {
+    return;
+  }
+
+  const result = await prisma.goods.findFirst({
+    include: {
+      barCodes: true,
+    },
+    where: {
+      id: barCode?.goodsId,
+    },
+  });
+
+  res.send(result);
 });
 
 // 通过分类获取商品列表
@@ -134,6 +146,9 @@ app.get("/api/getGoodsById", async (req, res) => {
   console.log("🚀 ~ app.get ~ id:", id);
   prisma.goods
     .findFirst({
+      include: {
+        barCodes: true,
+      },
       where: {
         id: Number(id),
       },
@@ -201,6 +216,7 @@ app.post("/api/verify", async (req, res) => {
   const updatePayload = {
     goodsActualNum: goodsActualNum,
     goodsCreateTime: new Date(),
+    goodsPick: true,
     goodsCreateOpenid: req.headers["x-wx-openid"],
     goodsStatus: "init",
   };
