@@ -66,10 +66,10 @@ app.get("/api/stat", async (req, res) => {
     prisma.goods.count({}),
   ]);
 
-  return {
+  res.send({
     initCount,
     allCount,
-  };
+  });
 });
 
 // 搜索商品
