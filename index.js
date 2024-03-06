@@ -88,6 +88,38 @@ app.get("/api/getGoodsByCode", async (req, res) => {
     });
 });
 
+// 通过分类获取商品列表
+app.get("/api/getGoodsByType", async (req, res) => {
+  const type = req.query.type;
+  prisma.goods
+    .findMany({
+      where: {
+        goodsType: type,
+      },
+    })
+    .then((data) => {
+      res.send(data);
+    });
+});
+
+// 拣货
+app.post("/api/pick", async (req, res) => {
+  const { goodsId, goodsBarCode } = req.body;
+  prisma.goods
+    .update({
+      where: {
+        id: Number(goodsId),
+      },
+      data: {
+        goodsPick: true,
+        goodsBarCode,
+      },
+    })
+    .then((data) => {
+      res.send(data);
+    });
+});
+
 // 通过 ID 查找商品
 app.get("/api/getGoodsById", async (req, res) => {
   const id = req.query.id;
