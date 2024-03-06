@@ -91,7 +91,7 @@ app.get("/api/getGoodsByCode", async (req, res) => {
   });
 
   if (!barCode || !barCode.goodsBarCode) {
-    return;
+    res.send(null);
   }
 
   const result = await prisma.goods.findFirst({
