@@ -51,4 +51,8 @@ model Goods {
   goodsStatus        String?   @default("init")
   // 录入备注图片
   goodsRemarkPic     String?
+  // 商品图片
+  goodsPic           String?   @db.Text
+  // 商品录入图片
+  goodsInputPic      String?   @db.Text
 }

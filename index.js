@@ -121,7 +121,7 @@ app.get("/api/getRefuseGoods", async (req, res) => {
 
 // 核对商品
 app.post("/api/verify", async (req, res) => {
-  const { goodsId, goodsActualNum, goodsBarCode, goodsRemark, goodsRemarkPic } = req.body;
+  const { goodsId, goodsActualNum, goodsBarCode, goodsRemark, goodsRemarkPic, goodsPic, goodsInputPic } = req.body;
   const updatePayload = {
     goodsActualNum: goodsActualNum,
     goodsCreateTime: new Date(),
@@ -136,6 +136,12 @@ app.post("/api/verify", async (req, res) => {
   }
   if (goodsRemark) {
     updatePayload["goodsRemark"] = goodsRemark;
+  }
+  if (goodsPic) {
+    updatePayload["goodsPic"] = goodsPic;
+  }
+  if (goodsInputPic) {
+    updatePayload["goodsInputPic"] = goodsInputPic;
   }
   prisma.goods
     .update({
