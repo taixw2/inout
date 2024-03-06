@@ -275,6 +275,35 @@ app.post("/api/confirm", async (req, res) => {
     });
 });
 
+// 添加条形码
+app.post("/api/addBarCode", async (req, res) => {
+  const { goodsId, goodsBarCode } = req.body;
+  prisma.barCode
+    .create({
+      data: {
+        goodsId,
+        goodsBarCode,
+      },
+    })
+    .then((data) => {
+      res.send(data);
+    });
+});
+
+// 删除条形码
+app.post("/api/deleteBarCode", async (req, res) => {
+  const { id } = req.body;
+  prisma.barCode
+    .delete({
+      where: {
+        id,
+      },
+    })
+    .then((data) => {
+      res.send(data);
+    });
+});
+
 const port = process.env.PORT || 80;
 
 async function bootstrap() {
