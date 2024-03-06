@@ -54,7 +54,7 @@ app.get("/api/search", async (req, res) => {
 
 // 统计
 app.get("/api/stat", async (req, res) => {
-  const [initCount, allCount] = await Promise.all([
+  const [initCount, allCount, pickCount] = await Promise.all([
     prisma.goods.count({
       where: {
         goodsStatus: "init",
@@ -64,11 +64,17 @@ app.get("/api/stat", async (req, res) => {
       },
     }),
     prisma.goods.count({}),
+    prisma.goods.count({
+      where: {
+        goodsPick: true,
+      },
+    }),
   ]);
 
   res.send({
     initCount,
     allCount,
+    pickCount,
   });
 });
 
