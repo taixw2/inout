@@ -30,7 +30,6 @@ app.get("/api/wx_openid", async (req, res) => {
 // 搜索商品
 app.get("/api/search", async (req, res) => {
   const keyword = req.query.keyword;
-  console.log("🚀 ~ app.get ~ keyword:", keyword);
 
   prisma.goods
     .findMany({
@@ -121,7 +120,16 @@ app.get("/api/getRefuseGoods", async (req, res) => {
 
 // 核对商品
 app.post("/api/verify", async (req, res) => {
-  const { goodsId, goodsActualNum, goodsBarCode, goodsRemark, goodsRemarkPic, goodsPic, goodsInputPic } = req.body;
+  const {
+    goodsId,
+    goodsActualNum,
+    goodsBarCode,
+    goodsRemark,
+    goodsRemarkPic,
+    goodsPic,
+    goodsInputPic,
+    storeInnerCode,
+  } = req.body;
   const updatePayload = {
     goodsActualNum: goodsActualNum,
     goodsCreateTime: new Date(),
@@ -139,6 +147,9 @@ app.post("/api/verify", async (req, res) => {
   }
   if (goodsPic) {
     updatePayload["goodsPic"] = goodsPic;
+  }
+  if (storeInnerCode) {
+    updatePayload["storeInnerCode"] = storeInnerCode;
   }
   if (goodsInputPic) {
     updatePayload["goodsInputPic"] = goodsInputPic;
