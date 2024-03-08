@@ -287,6 +287,9 @@ app.post("/api/confirm", async (req, res) => {
   }
   prisma.goods
     .update({
+      include: {
+        barCodes: true,
+      },
       where: {
         id: Number(goodsId),
       },
