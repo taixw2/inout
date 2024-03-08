@@ -252,17 +252,39 @@ app.post("/api/verify", async (req, res) => {
 
 // 确认商品
 app.post("/api/confirm", async (req, res) => {
-  const { goodsId, goodsStatus, goodsRemark } = req.body;
+  const {
+    goodsId,
+    goodsStatus,
+    goodsRemark,
+    goodsLocation,
+    goodsRealName,
+    storeInnerCode,
+    goodsBarCode,
+    goodsActualNum,
+  } = req.body;
   const updatePayload = {
     goodsConfirmOpenid: req.headers["x-wx-openid"],
     goodsConfirmTime: new Date(),
     goodsStatus: goodsStatus,
   };
-
   if (goodsRemark) {
     updatePayload["goodsRemark"] = goodsRemark;
   }
-
+  if (goodsLocation) {
+    updatePayload["goodsLocation"] = goodsLocation;
+  }
+  if (goodsRealName) {
+    updatePayload["goodsRealName"] = goodsRealName;
+  }
+  if (storeInnerCode) {
+    updatePayload["storeInnerCode"] = storeInnerCode;
+  }
+  if (goodsBarCode) {
+    updatePayload["goodsBarCode"] = goodsBarCode;
+  }
+  if (goodsActualNum) {
+    updatePayload["goodsActualNum"] = goodsActualNum;
+  }
   prisma.goods
     .update({
       where: {

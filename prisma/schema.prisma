@@ -59,6 +59,10 @@ model Goods {
   storeInnerCode     String?
   // 是否已经拣货
   goodsPick          Boolean   @default(false)
+  // 商品真实名称
+  goodsRealName      String?
+  // 商品位置
+  goodsLocation      String?
   barCodes           BarCode[]
 }
 
