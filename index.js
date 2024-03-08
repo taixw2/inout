@@ -300,6 +300,23 @@ app.post("/api/confirm", async (req, res) => {
     });
 });
 
+// 摆货
+app.post("/api/pickup", async (req, res) => {
+  const { goodsId, goodsLocation } = req.body;
+  prisma.goods
+    .update({
+      where: {
+        id: Number(goodsId),
+      },
+      data: {
+        goodsLocation: goodsLocation,
+      },
+    })
+    .then((data) => {
+      res.send(data);
+    });
+});
+
 // 添加条形码
 app.post("/api/addBarCode", async (req, res) => {
   const { goodsId, goodsBarCode } = req.body;
