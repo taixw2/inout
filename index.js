@@ -261,6 +261,7 @@ app.post("/api/confirm", async (req, res) => {
     storeInnerCode,
     goodsBarCode,
     goodsActualNum,
+    goodsInputNum,
   } = req.body;
   const updatePayload = {
     goodsConfirmOpenid: req.headers["x-wx-openid"],
@@ -284,6 +285,9 @@ app.post("/api/confirm", async (req, res) => {
   }
   if (goodsActualNum) {
     updatePayload["goodsActualNum"] = goodsActualNum;
+  }
+  if (goodsInputNum) {
+    updatePayload["goodsInputNum"] = goodsInputNum;
   }
   prisma.goods
     .update({

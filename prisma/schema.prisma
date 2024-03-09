@@ -63,6 +63,8 @@ model Goods {
   goodsRealName      String?
   // 商品位置
   goodsLocation      String?
+  // 录入数量
+  goodsInputNum      Int?
   barCodes           BarCode[]
 }
 
