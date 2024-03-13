@@ -366,6 +366,20 @@ app.post("/api/update", async (req, res) => {
 		});
 });
 
+// 删除商品
+app.post("/api/delete", async (req, res) => {
+	const { id } = req.body;
+	prisma.goods
+		.delete({
+			where: {
+				id,
+			},
+		})
+		.then((data) => {
+			res.send(data);
+		});
+});
+
 const port = process.env.PORT || 80;
 
 async function bootstrap() {
