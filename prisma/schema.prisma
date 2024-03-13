@@ -77,3 +77,19 @@ model BarCode {
 
   goods Goods @relation(fields: [goodsId], references: [id])
 }
+
+model Admin {
+  id                     Int       @id @default(autoincrement())
+  enabled                Boolean   @default(true)
+  username               String    @db.VarChar(32)
+  password               String    @db.VarChar(128)
+  super                  Boolean   @default(false)
+  internal               Boolean   @default(false)
+  created_at             DateTime? @default(now()) @db.Timestamp(6)
+  disallow_delete        Boolean?  @default(false)
+  disallow_modify        Boolean?  @default(false)
+  disallow_modify_status Boolean?  @default(false)
+  updated_at             DateTime? @updatedAt @db.Timestamp(6)
+  iv                     String    @db.VarChar(32)
+  status                 String?   @db.VarChar(255)
+}
