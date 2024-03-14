@@ -66,6 +66,9 @@ model Goods {
   // 录入数量
   goodsInputNum      Int?
   barCodes           BarCode[]
+  enabled            Boolean   @default(true)
+  created_at         DateTime? @default(now()) @db.Timestamp(6)
+  updated_at         DateTime? @updatedAt @db.Timestamp(6)
 }
 
 // 商品条形码
@@ -74,6 +77,9 @@ model BarCode {
   goodsId      Int
   goodsBarCode String
   createTime   DateTime?
+  created_at   DateTime? @default(now()) @db.Timestamp(6)
+  updated_at   DateTime? @updatedAt @db.Timestamp(6)
+  enabled      Boolean   @default(true)
 
   goods Goods @relation(fields: [goodsId], references: [id])
 }
@@ -85,11 +91,21 @@ model Admin {
   password               String    @db.VarChar(128)
   super                  Boolean   @default(false)
   internal               Boolean   @default(false)
-  created_at             DateTime? @default(now()) @db.Timestamp(6)
   disallow_delete        Boolean?  @default(false)
   disallow_modify        Boolean?  @default(false)
   disallow_modify_status Boolean?  @default(false)
+  created_at             DateTime? @default(now()) @db.Timestamp(6)
   updated_at             DateTime? @updatedAt @db.Timestamp(6)
   iv                     String    @db.VarChar(32)
   status                 String?   @db.VarChar(255)
+}
+
+model AccessToken {
+  id            Int       @id @default(autoincrement())
+  access_token  String
+  expires_in    Int
+  refresh_token String
+  appid         String    @unique
+  created_at    DateTime? @default(now()) @db.Timestamp(6)
+  updated_at    DateTime? @updatedAt @db.Timestamp(6)
 }

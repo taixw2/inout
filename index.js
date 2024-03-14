@@ -358,10 +358,7 @@ app.post("/api/update", async (req, res) => {
       where: {
         id,
       },
-      data: {
-        ...rest,
-        updated_at: new Date(),
-      },
+      data: rest,
     })
     .then((data) => {
       res.send(data);
