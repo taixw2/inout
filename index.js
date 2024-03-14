@@ -387,6 +387,16 @@ app.get("/api/getGoodsByLocation", async (req, res) => {
         goodsLocation: {
           not: null,
         },
+        OR: [
+          {
+            goodsPic: null,
+          },
+          {
+            goodsPic: {
+              contains: "cloud",
+            },
+          },
+        ],
       },
     })
     .then((data) => {
