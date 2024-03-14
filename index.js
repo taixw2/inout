@@ -382,6 +382,21 @@ app.post("/api/delete", async (req, res) => {
     });
 });
 
+// 找出所有有位置的商品
+app.get("/api/getGoodsByLocation", async (req, res) => {
+  prisma.goods
+    .findMany({
+      where: {
+        goodsLocation: {
+          not: null,
+        },
+      },
+    })
+    .then((data) => {
+      res.send(data);
+    });
+});
+
 const port = process.env.PORT || 80;
 
 async function bootstrap() {
